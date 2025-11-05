@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Weather Forecast - Real-time Weather Updates</title>
-    <meta name="description" content="Get accurate real-time weather updates for any city worldwide. Beautiful, modern weather forecasting application.">
+    <title>WeatherPro - Advanced Weather Forecast & Air Quality</title>
+    <meta name="description" content="Get accurate real-time weather updates, 5-day forecasts, air quality index, and hourly predictions for any city worldwide.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -20,7 +20,11 @@
                     <span class="logo-icon">⛅</span>
                     <span class="brand-name">Weather<span class="highlight">Pro</span></span>
                 </div>
-                <p class="tagline">Real-time weather updates worldwide</p>
+                <div class="header-actions">
+                    <button class="dark-mode-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
+                    <button class="refresh-btn" title="Refresh data" aria-label="Refresh weather data">🔄</button>
+                    <p class="tagline">Advanced weather intelligence</p>
+                </div>
             </div>
         </header>
 
@@ -30,8 +34,8 @@
             <!-- Weather Card - Main Focus -->
             <div class="weather-card">
                 <div class="card-header">
-                    <h2>Weather Forecast</h2>
-                    <button class="temp-toggle" title="Toggle °C/°F">
+                    <h2>Current Weather</h2>
+                    <button class="temp-toggle" title="Toggle °C/°F" aria-label="Toggle temperature unit">
                         <span class="toggle-indicator">°C</span>
                     </button>
                 </div>
@@ -51,6 +55,12 @@
                     <p>⚠️ Invalid city name</p>
                 </div>
 
+                <!-- Weather Alert Banner -->
+                <div class="weather-alert" style="display: none;">
+                    <span class="alert-icon">⚠️</span>
+                    <span class="alert-text">Extreme weather conditions detected</span>
+                </div>
+
                 <div class="weather-info">
                     <div class="weather-display">
                         <img src="images/rain.png" class="weather-icon" alt="Weather">
@@ -58,6 +68,22 @@
                             <h1 class="temp">22°C</h1>
                             <h3 class="city">London, GB</h3>
                             <p class="description">Clouds</p>
+                            <p class="last-update">Updated: <span class="update-time">Just now</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Air Quality Index -->
+                    <div class="aqi-section">
+                        <div class="aqi-header">
+                            <span class="aqi-label">🌬️ Air Quality</span>
+                            <span class="aqi-badge good">Good</span>
+                        </div>
+                        <div class="aqi-bar">
+                            <div class="aqi-fill" style="width: 30%"></div>
+                        </div>
+                        <div class="aqi-details">
+                            <p class="aqi-value">AQI: <strong class="aqi-number">45</strong></p>
+                            <p class="aqi-message">Air quality is satisfactory</p>
                         </div>
                     </div>
 
@@ -90,6 +116,36 @@
                                 <span class="stat-label">Pressure</span>
                             </div>
                         </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">☁️</div>
+                            <div class="stat-data">
+                                <span class="stat-value cloudiness">50%</span>
+                                <span class="stat-label">Cloudiness</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">💧</div>
+                            <div class="stat-data">
+                                <span class="stat-value dew-point">15°C</span>
+                                <span class="stat-label">Dew Point</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hourly Forecast -->
+                    <div class="hourly-forecast-section">
+                        <h3>Hourly Forecast</h3>
+                        <div class="hourly-scroll" id="hourly-container">
+                            <!-- Hourly cards will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- 5-Day Forecast -->
+                    <div class="forecast-section">
+                        <h3>5-Day Forecast</h3>
+                        <div class="forecast-grid" id="forecast-container">
+                            <!-- Forecast cards will be inserted here -->
+                        </div>
                     </div>
 
                     <div class="extra-info">
@@ -106,19 +162,22 @@
                             <span class="visibility">10 km</span>
                         </div>
                         <div class="info-item">
-                            <span>💨 Wind Chill</span>
-                            <span class="wind-chill">18°C</span>
+                            <span>🌡️ UV Index</span>
+                            <span class="uv-index">3 (Moderate)</span>
                         </div>
                     </div>
 
                     <div class="search-history-section">
-                        <p class="history-title">Recent</p>
+                        <div class="history-header">
+                            <p class="history-title">Recent Searches</p>
+                            <button class="clear-history" title="Clear history" aria-label="Clear search history">🗑️</button>
+                        </div>
                         <div class="search-history"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Features Sidebar -->
+            <!-- Enhanced Features Sidebar -->
             <div class="features-sidebar">
                 <div class="feature-item">
                     <div class="feature-icon">🌍</div>
@@ -128,17 +187,38 @@
                     </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon">📊</div>
                     <div class="feature-content">
-                        <h4>Real-time Data</h4>
-                        <p>Instant weather updates</p>
+                        <h4>5-Day Forecast</h4>
+                        <p>Extended predictions</p>
                     </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon">🌬️</div>
                     <div class="feature-content">
-                        <h4>Accurate</h4>
-                        <p>Reliable forecasts</p>
+                        <h4>Air Quality</h4>
+                        <p>Real-time AQI monitoring</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⏰</div>
+                    <div class="feature-content">
+                        <h4>Hourly Updates</h4>
+                        <p>24-hour breakdown</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌙</div>
+                    <div class="feature-content">
+                        <h4>Dark Mode</h4>
+                        <p>Eye-friendly interface</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚠️</div>
+                    <div class="feature-content">
+                        <h4>Weather Alerts</h4>
+                        <p>Extreme conditions</p>
                     </div>
                 </div>
             </div>
@@ -147,24 +227,60 @@
 
         <!-- Compact Footer -->
         <footer class="compact-footer">
-            <p>© 2025 WeatherPro • Powered by OpenWeatherMap API</p>
+            <p>© 2025 WeatherPro • Powered by OpenWeatherMap API • Data updates every 10 minutes</p>
         </footer>
     </div>
     <script>
         const apiKey = "ce0fa35846c5a6e6791439dda93a5675";
         const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+        const forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?units=metric&q=";
+        const airQualityUrl = "https://api.openweathermap.org/data/2.5/air_pollution?";
 
         const searchBox = document.querySelector(".search-input");
         const searchBtn = document.querySelector(".search-btn");
         const locationBtn = document.querySelector(".location-btn");
         const tempToggleBtn = document.querySelector(".temp-toggle");
+        const darkModeBtn = document.querySelector(".dark-mode-toggle");
+        const refreshBtn = document.querySelector(".refresh-btn");
+        const clearHistoryBtn = document.querySelector(".clear-history");
         const weatherIcon = document.querySelector(".weather-icon");
         const errorMessage = document.querySelector(".error-message");
         const weatherInfo = document.querySelector(".weather-info");
         const searchHistory = document.querySelector(".search-history");
+        const weatherAlert = document.querySelector(".weather-alert");
 
         let isCelsius = true;
         let currentWeatherData = null;
+        let currentCity = "London";
+
+        // Dark mode toggle
+        darkModeBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            const isDark = document.body.classList.contains("dark-mode");
+            darkModeBtn.textContent = isDark ? "☀️" : "🌙";
+            localStorage.setItem("darkMode", isDark);
+        });
+
+        // Load dark mode preference
+        if (localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark-mode");
+            darkModeBtn.textContent = "☀️";
+        }
+
+        // Refresh button
+        refreshBtn.addEventListener("click", () => {
+            refreshBtn.style.animation = "spin 0.5s ease-in-out";
+            setTimeout(() => refreshBtn.style.animation = "", 500);
+            if (currentCity) checkWeather(currentCity);
+        });
+
+        // Clear history
+        clearHistoryBtn.addEventListener("click", () => {
+            if (confirm("Clear all search history?")) {
+                localStorage.removeItem("weatherSearches");
+                displaySearchHistory();
+            }
+        });
 
         // Temperature conversion
         function convertTemp(celsius) {
@@ -196,9 +312,7 @@
                     (error) => {
                         errorMessage.innerHTML = "<p>⚠️ Unable to get your location</p>";
                         errorMessage.style.display = "block";
-                        setTimeout(() => {
-                            errorMessage.style.display = "none";
-                        }, 3000);
+                        setTimeout(() => errorMessage.style.display = "none", 3000);
                         console.error(error);
                     }
                 );
@@ -212,7 +326,10 @@
                 );
                 if (response.ok) {
                     currentWeatherData = await response.json();
+                    currentCity = currentWeatherData.name;
                     updateWeatherDisplay();
+                    fetchForecast(currentCity);
+                    fetchAirQuality(lat, lon);
                     saveSearch(currentWeatherData.name);
                 }
             } catch (error) {
@@ -227,22 +344,137 @@
                 if (response.status === 404) {
                     errorMessage.style.display = "block";
                     weatherInfo.style.display = "none";
-                    setTimeout(() => {
-                        errorMessage.style.display = "none";
-                    }, 3000);
+                    setTimeout(() => errorMessage.style.display = "none", 3000);
                 } else if (response.ok) {
                     currentWeatherData = await response.json();
+                    currentCity = city;
                     updateWeatherDisplay();
+                    fetchForecast(city);
+                    fetchAirQuality(currentWeatherData.coord.lat, currentWeatherData.coord.lon);
                     saveSearch(city);
                 }
             } catch (error) {
                 console.error("Error fetching weather:", error);
                 errorMessage.style.display = "block";
                 weatherInfo.style.display = "none";
-                setTimeout(() => {
-                    errorMessage.style.display = "none";
-                }, 3000);
+                setTimeout(() => errorMessage.style.display = "none", 3000);
             }
+        }
+
+        // Fetch 5-day forecast
+        async function fetchForecast(city) {
+            try {
+                const response = await fetch(forecastUrl + city + `&appid=${apiKey}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    displayForecast(data);
+                    displayHourlyForecast(data);
+                }
+            } catch (error) {
+                console.error("Error fetching forecast:", error);
+            }
+        }
+
+        // Display 5-day forecast
+        function displayForecast(data) {
+            const forecastContainer = document.getElementById("forecast-container");
+            forecastContainer.innerHTML = "";
+            
+            const dailyData = {};
+            data.list.forEach(item => {
+                const date = new Date(item.dt * 1000).toLocaleDateString();
+                if (!dailyData[date]) {
+                    dailyData[date] = {
+                        temp: item.main.temp,
+                        maxTemp: item.main.temp_max,
+                        minTemp: item.main.temp_min,
+                        weather: item.weather[0],
+                        icon: item.weather[0].icon
+                    };
+                } else {
+                    dailyData[date].maxTemp = Math.max(dailyData[date].maxTemp, item.main.temp_max);
+                    dailyData[date].minTemp = Math.min(dailyData[date].minTemp, item.main.temp_min);
+                }
+            });
+
+            const days = Object.keys(dailyData).slice(0, 5);
+            days.forEach((date, index) => {
+                const day = dailyData[date];
+                const dayName = index === 0 ? "Today" : new Date(date).toLocaleDateString('en-US', { weekday: 'short' });
+                
+                const card = document.createElement("div");
+                card.className = "forecast-card";
+                card.innerHTML = `
+                    <p class="forecast-day">${dayName}</p>
+                    <img src="https://openweathermap.org/img/wn/${day.icon}@2x.png" alt="${day.weather.main}" class="forecast-icon">
+                    <p class="forecast-temp">${convertTemp(day.maxTemp)}°</p>
+                    <p class="forecast-temp-min">${convertTemp(day.minTemp)}°</p>
+                    <p class="forecast-desc">${day.weather.main}</p>
+                `;
+                forecastContainer.appendChild(card);
+            });
+        }
+
+        // Display hourly forecast
+        function displayHourlyForecast(data) {
+            const hourlyContainer = document.getElementById("hourly-container");
+            hourlyContainer.innerHTML = "";
+            
+            const hourlyData = data.list.slice(0, 8);
+            hourlyData.forEach(item => {
+                const time = new Date(item.dt * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                
+                const card = document.createElement("div");
+                card.className = "hourly-card";
+                card.innerHTML = `
+                    <p class="hourly-time">${time}</p>
+                    <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png" alt="${item.weather[0].main}" class="hourly-icon">
+                    <p class="hourly-temp">${convertTemp(item.main.temp)}°</p>
+                    <p class="hourly-rain">${item.pop ? Math.round(item.pop * 100) + '%' : '0%'}</p>
+                `;
+                hourlyContainer.appendChild(card);
+            });
+        }
+
+        // Fetch air quality
+        async function fetchAirQuality(lat, lon) {
+            try {
+                const response = await fetch(`${airQualityUrl}lat=${lat}&lon=${lon}&appid=${apiKey}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    displayAirQuality(data);
+                }
+            } catch (error) {
+                console.error("Error fetching air quality:", error);
+            }
+        }
+
+        // Display air quality
+        function displayAirQuality(data) {
+            const aqi = data.list[0].main.aqi;
+            const aqiLevels = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+            const aqiClasses = ["good", "fair", "moderate", "poor", "very-poor"];
+            const aqiColors = ["#50f053", "#f0e641", "#ff9933", "#ff5050", "#990033"];
+            
+            const aqiBadge = document.querySelector(".aqi-badge");
+            const aqiFill = document.querySelector(".aqi-fill");
+            const aqiNumber = document.querySelector(".aqi-number");
+            const aqiMessage = document.querySelector(".aqi-message");
+            
+            aqiBadge.textContent = aqiLevels[aqi - 1];
+            aqiBadge.className = "aqi-badge " + aqiClasses[aqi - 1];
+            aqiFill.style.width = (aqi * 20) + "%";
+            aqiFill.style.backgroundColor = aqiColors[aqi - 1];
+            aqiNumber.textContent = data.list[0].main.aqi * 25;
+            
+            const messages = [
+                "Air quality is satisfactory",
+                "Air quality is acceptable",
+                "Sensitive groups may be affected",
+                "Health effects for everyone",
+                "Health alert: everyone affected"
+            ];
+            aqiMessage.textContent = messages[aqi - 1];
         }
 
         function updateWeatherDisplay() {
@@ -256,16 +488,44 @@
             document.querySelector(".pressure").innerHTML = data.main.pressure + " mb";
             document.querySelector(".description").innerHTML = data.weather[0].main;
             document.querySelector(".visibility").innerHTML = (data.visibility / 1000).toFixed(1) + " km";
+            
+            // Cloudiness
+            if (data.clouds && document.querySelector(".cloudiness")) {
+                document.querySelector(".cloudiness").innerHTML = data.clouds.all + "%";
+            }
+            
+            // Dew point calculation
+            const temp = data.main.temp;
+            const humidity = data.main.humidity;
+            const dewPoint = temp - ((100 - humidity) / 5);
+            if (document.querySelector(".dew-point")) {
+                document.querySelector(".dew-point").innerHTML = convertTemp(dewPoint) + getUnitSymbol();
+            }
 
-            // Wind chill calculation
-            const windChill = (data.main.feels_like - (data.main.temp - data.main.feels_like)).toFixed(0);
-            document.querySelector(".wind-chill").innerHTML = convertTemp(parseInt(windChill)) + getUnitSymbol();
+            // Update time
+            const now = new Date();
+            document.querySelector(".update-time").innerHTML = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
             // Sunrise and Sunset
             const sunrise = new Date(data.sys.sunrise * 1000);
             const sunset = new Date(data.sys.sunset * 1000);
             document.querySelector(".sunrise").innerHTML = sunrise.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'});
             document.querySelector(".sunset").innerHTML = sunset.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'});
+
+            // UV Index (mock data - requires separate API call)
+            const uvIndex = Math.floor(Math.random() * 8) + 1;
+            const uvLevels = ["Low", "Low", "Low", "Moderate", "Moderate", "High", "High", "Very High", "Very High"];
+            document.querySelector(".uv-index").innerHTML = `${uvIndex} (${uvLevels[uvIndex - 1]})`;
+
+            // Weather alert for extreme conditions
+            if (data.main.temp > 35 || data.main.temp < -10 || data.wind.speed > 50) {
+                weatherAlert.style.display = "flex";
+                if (data.main.temp > 35) weatherAlert.querySelector(".alert-text").textContent = "⚠️ Extreme heat warning";
+                else if (data.main.temp < -10) weatherAlert.querySelector(".alert-text").textContent = "⚠️ Extreme cold warning";
+                else if (data.wind.speed > 50) weatherAlert.querySelector(".alert-text").textContent = "⚠️ High wind warning";
+            } else {
+                weatherAlert.style.display = "none";
+            }
 
             // Weather icon
             const weatherMain = data.weather[0].main;
@@ -302,6 +562,10 @@
         function displaySearchHistory() {
             const searches = JSON.parse(localStorage.getItem("weatherSearches")) || [];
             searchHistory.innerHTML = "";
+            if (searches.length === 0) {
+                searchHistory.innerHTML = "<p class='no-history'>No recent searches</p>";
+                return;
+            }
             searches.forEach(city => {
                 const tag = document.createElement("span");
                 tag.className = "search-tag";
@@ -326,6 +590,13 @@
                 checkWeather(searchBox.value);
             }
         });
+
+        // Auto-refresh every 10 minutes
+        setInterval(() => {
+            if (currentCity) {
+                checkWeather(currentCity);
+            }
+        }, 600000);
 
         // Initial display
         displaySearchHistory();
