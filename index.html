@@ -11,268 +11,145 @@
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <span class="logo-icon">⛅</span>
-                <span class="logo-text">Weather<span class="highlight">Pro</span></span>
+    <!-- Compact Single Page Layout -->
+    <div class="main-wrapper">
+        <!-- Header -->
+        <header class="compact-header">
+            <div class="header-content">
+                <div class="brand">
+                    <span class="logo-icon">⛅</span>
+                    <span class="brand-name">Weather<span class="highlight">Pro</span></span>
+                </div>
+                <p class="tagline">Real-time weather updates worldwide</p>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-            </ul>
-        </div>
-    </nav>
+        </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">Real-Time Weather Updates</h1>
-            <p class="hero-subtitle">Get accurate weather forecasts for any location worldwide</p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">200+</span>
-                    <span class="stat-label">Countries</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">Real-time</span>
-                    <span class="stat-label">Updates</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">Accurate</span>
-                    <span class="stat-label">Forecasts</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Weather App -->
-    <section class="weather-section">
-        <div class="container">
-            <div class="card">
-                <div class="header">
-                    <div class="header-top">
-                        <h2>Weather Forecast</h2>
-                        <button class="temp-toggle" title="Toggle °C/°F">
-                            <span class="toggle-indicator">°C</span>
-                        </button>
-                    </div>
-                    <p class="subtitle">Get weather updates instantly</p>
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            
+            <!-- Weather Card - Main Focus -->
+            <div class="weather-card">
+                <div class="card-header">
+                    <h2>Weather Forecast</h2>
+                    <button class="temp-toggle" title="Toggle °C/°F">
+                        <span class="toggle-indicator">°C</span>
+                    </button>
                 </div>
 
-                <div class="search-container">
-                    <div class="search">
-                        <input type="text" placeholder="Search for a city..." spellcheck="false" class="search-input">
-                        <button class="search-btn" title="Search"><img src="images/search.png" alt="Search"></button>
-                        <button class="location-btn" title="Use current location">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                        </button>
-                    </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search city..." spellcheck="false" class="search-input">
+                    <button class="search-btn" title="Search"><img src="images/search.png" alt="Search"></button>
+                    <button class="location-btn" title="Current location">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </button>
                 </div>
 
                 <div class="error-message">
-                    <p>⚠️ Invalid city name. Please try again.</p>
+                    <p>⚠️ Invalid city name</p>
                 </div>
 
                 <div class="weather-info">
-                    <div class="weather-main">
+                    <div class="weather-display">
                         <img src="images/rain.png" class="weather-icon" alt="Weather">
-                        <div class="temp-section">
+                        <div class="temp-info">
                             <h1 class="temp">22°C</h1>
-                            <h3 class="city">New York</h3>
-                            <p class="location-info">Location found</p>
+                            <h3 class="city">London, GB</h3>
+                            <p class="description">Clouds</p>
                         </div>
                     </div>
 
-                    <div class="weather-description">
-                        <p class="description">Rainy</p>
-                    </div>
-
-                    <div class="details">
-                        <div class="detail-card">
-                            <div class="detail-icon">
-                                <img src="images/humidity.png" alt="Humidity">
-                            </div>
-                            <div class="detail-content">
-                                <p class="detail-value humidity">50%</p>
-                                <p class="detail-label">Humidity</p>
+                    <div class="weather-stats">
+                        <div class="stat-box">
+                            <div class="stat-icon">💧</div>
+                            <div class="stat-data">
+                                <span class="stat-value humidity">72%</span>
+                                <span class="stat-label">Humidity</span>
                             </div>
                         </div>
-                        <div class="detail-card">
-                            <div class="detail-icon">
-                                <img src="images/wind.png" alt="Wind">
-                            </div>
-                            <div class="detail-content">
-                                <p class="detail-value wind">15 km/h</p>
-                                <p class="detail-label">Wind Speed</p>
+                        <div class="stat-box">
+                            <div class="stat-icon">💨</div>
+                            <div class="stat-data">
+                                <span class="stat-value wind">4 km/h</span>
+                                <span class="stat-label">Wind Speed</span>
                             </div>
                         </div>
-                        <div class="detail-card">
-                            <div class="detail-icon">
-                                🌡️
-                            </div>
-                            <div class="detail-content">
-                                <p class="detail-value feels-like">20°C</p>
-                                <p class="detail-label">Feels Like</p>
+                        <div class="stat-box">
+                            <div class="stat-icon">🌡️</div>
+                            <div class="stat-data">
+                                <span class="stat-value feels-like">20°C</span>
+                                <span class="stat-label">Feels Like</span>
                             </div>
                         </div>
-                        <div class="detail-card">
-                            <div class="detail-icon">
-                                🧭
-                            </div>
-                            <div class="detail-content">
-                                <p class="detail-value pressure">1013 mb</p>
-                                <p class="detail-label">Pressure</p>
+                        <div class="stat-box">
+                            <div class="stat-icon">🧭</div>
+                            <div class="stat-data">
+                                <span class="stat-value pressure">1007 mb</span>
+                                <span class="stat-label">Pressure</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="additional-info">
-                        <div class="info-row">
-                            <div class="info-item">
-                                <span class="info-label">🌅 Sunrise</span>
-                                <span class="info-value sunrise">6:30 AM</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">🌇 Sunset</span>
-                                <span class="info-value sunset">6:30 PM</span>
-                            </div>
+                    <div class="extra-info">
+                        <div class="info-item">
+                            <span>🌅 Sunrise</span>
+                            <span class="sunrise">6:30 AM</span>
                         </div>
-                        <div class="info-row">
-                            <div class="info-item">
-                                <span class="info-label">👁️ Visibility</span>
-                                <span class="info-value visibility">10 km</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">💨 Wind Chill</span>
-                                <span class="info-value wind-chill">18°C</span>
-                            </div>
+                        <div class="info-item">
+                            <span>🌇 Sunset</span>
+                            <span class="sunset">6:30 PM</span>
+                        </div>
+                        <div class="info-item">
+                            <span>👁️ Visibility</span>
+                            <span class="visibility">10 km</span>
+                        </div>
+                        <div class="info-item">
+                            <span>💨 Wind Chill</span>
+                            <span class="wind-chill">18°C</span>
                         </div>
                     </div>
-                </div>
 
-                <div class="recent-searches">
-                    <p class="recent-title">Recent Searches</p>
-                    <div class="search-history"></div>
+                    <div class="search-history-section">
+                        <p class="history-title">Recent</p>
+                        <div class="search-history"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features-section">
-        <div class="section-container">
-            <h2 class="section-title">Powerful Features</h2>
-            <p class="section-subtitle">Everything you need to stay informed about the weather</p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
+            <!-- Quick Features Sidebar -->
+            <div class="features-sidebar">
+                <div class="feature-item">
                     <div class="feature-icon">🌍</div>
-                    <h3 class="feature-title">Global Coverage</h3>
-                    <p class="feature-text">Access weather data from over 200,000 cities worldwide with real-time updates.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📍</div>
-                    <h3 class="feature-title">Location Detection</h3>
-                    <p class="feature-text">Automatically detect your location and get instant weather updates for your area.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌡️</div>
-                    <h3 class="feature-title">Unit Conversion</h3>
-                    <p class="feature-text">Switch between Celsius and Fahrenheit with a single click for your preference.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3 class="feature-title">Detailed Metrics</h3>
-                    <p class="feature-text">View humidity, wind speed, pressure, visibility, and more comprehensive data.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🕐</div>
-                    <h3 class="feature-title">Sun Times</h3>
-                    <p class="feature-text">Get accurate sunrise and sunset times for any location you search.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💾</div>
-                    <h3 class="feature-title">Search History</h3>
-                    <p class="feature-text">Quick access to your recently searched locations saved automatically.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="section-container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">About WeatherPro</h2>
-                    <p class="about-description">
-                        WeatherPro is a modern, intuitive weather forecasting application designed to provide 
-                        accurate and real-time weather information for locations around the globe. Built with 
-                        cutting-edge technology and a focus on user experience, we make it easy to stay informed 
-                        about weather conditions wherever you are.
-                    </p>
-                    <p class="about-description">
-                        Our mission is to deliver reliable weather data in a beautiful, easy-to-use interface 
-                        that works seamlessly across all devices. Whether you're planning your day or checking 
-                        conditions in another city, WeatherPro has you covered.
-                    </p>
-                    <div class="about-features">
-                        <div class="about-feature-item">
-                            <span class="check-icon">✓</span>
-                            <span>Real-time data from trusted sources</span>
-                        </div>
-                        <div class="about-feature-item">
-                            <span class="check-icon">✓</span>
-                            <span>Beautiful, modern interface</span>
-                        </div>
-                        <div class="about-feature-item">
-                            <span class="check-icon">✓</span>
-                            <span>Fast and responsive design</span>
-                        </div>
-                        <div class="about-feature-item">
-                            <span class="check-icon">✓</span>
-                            <span>Free to use, no registration required</span>
-                        </div>
+                    <div class="feature-content">
+                        <h4>Global Coverage</h4>
+                        <p>200,000+ cities worldwide</p>
                     </div>
                 </div>
-                <div class="about-visual">
-                    <div class="visual-card">
-                        <div class="visual-icon">🌤️</div>
-                        <h4>Always Accurate</h4>
-                        <p>Powered by OpenWeatherMap API</p>
-                    </div>
-                    <div class="visual-card">
-                        <div class="visual-icon">⚡</div>
-                        <h4>Lightning Fast</h4>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-content">
+                        <h4>Real-time Data</h4>
                         <p>Instant weather updates</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="logo-icon">⛅</span>
-                    <span class="logo-text">Weather<span class="highlight">Pro</span></span>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-content">
+                        <h4>Accurate</h4>
+                        <p>Reliable forecasts</p>
+                    </div>
                 </div>
-                <p class="footer-text">Your trusted source for accurate weather information.</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 WeatherPro. Built with ❤️ for weather enthusiasts.</p>
-                <p class="api-credit">Powered by OpenWeatherMap API</p>
-            </div>
+
         </div>
-    </footer>
+
+        <!-- Compact Footer -->
+        <footer class="compact-footer">
+            <p>© 2025 WeatherPro • Powered by OpenWeatherMap API</p>
+        </footer>
+    </div>
     <script>
         const apiKey = "ce0fa35846c5a6e6791439dda93a5675";
         const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
@@ -288,48 +165,6 @@
 
         let isCelsius = true;
         let currentWeatherData = null;
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                if (targetSection) {
-                    const offsetTop = targetSection.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-
-                // Update active link
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Highlight active section on scroll
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('section[id]');
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionHeight = section.clientHeight;
-                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
 
         // Temperature conversion
         function convertTemp(celsius) {
@@ -422,7 +257,7 @@
             document.querySelector(".description").innerHTML = data.weather[0].main;
             document.querySelector(".visibility").innerHTML = (data.visibility / 1000).toFixed(1) + " km";
 
-            // Wind chill calculation (simplified)
+            // Wind chill calculation
             const windChill = (data.main.feels_like - (data.main.temp - data.main.feels_like)).toFixed(0);
             document.querySelector(".wind-chill").innerHTML = convertTemp(parseInt(windChill)) + getUnitSymbol();
 
