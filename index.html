@@ -55,6 +55,13 @@
                     <p>⚠️ Invalid city name</p>
                 </div>
 
+                <!-- Loading State -->
+                <div class="loading-skeleton" style="display: none;">
+                    <div class="skeleton-header"></div>
+                    <div class="skeleton-main"></div>
+                    <div class="skeleton-stats"></div>
+                </div>
+
                 <!-- Weather Alert Banner -->
                 <div class="weather-alert" style="display: none;">
                     <span class="alert-icon">⚠️</span>
@@ -167,6 +174,21 @@
                         </div>
                     </div>
 
+                    <!-- Weather Tips -->
+                    <div class="weather-tips">
+                        <h4>💡 Weather Tip</h4>
+                        <p class="tip-text">Loading recommendations...</p>
+                    </div>
+
+                    <!-- Favorite Cities -->
+                    <div class="favorites-section">
+                        <div class="favorites-header">
+                            <p class="favorites-title">⭐ Favorite Cities</p>
+                            <button class="add-favorite" title="Add current city to favorites" aria-label="Add to favorites">➕</button>
+                        </div>
+                        <div class="favorites-list"></div>
+                    </div>
+
                     <div class="search-history-section">
                         <div class="history-header">
                             <p class="history-title">Recent Searches</p>
@@ -248,6 +270,9 @@
         const weatherInfo = document.querySelector(".weather-info");
         const searchHistory = document.querySelector(".search-history");
         const weatherAlert = document.querySelector(".weather-alert");
+        const loadingSkeleton = document.querySelector(".loading-skeleton");
+        const addFavoriteBtn = document.querySelector(".add-favorite");
+        const favoritesList = document.querySelector(".favorites-list");
 
         let isCelsius = true;
         let currentWeatherData = null;
@@ -281,6 +306,25 @@
                 displaySearchHistory();
             }
         });
+
+        // Add to favorites
+        addFavoriteBtn.addEventListener("click", () => {
+            if (currentCity) {
+                addToFavorites(currentCity);
+            }
+        });
+
+        // Show loading state
+        function showLoading() {
+            loadingSkeleton.style.display = "block";
+            weatherInfo.style.display = "none";
+            errorMessage.style.display = "none";
+        }
+
+        // Hide loading state
+        function hideLoading() {
+            loadingSkeleton.style.display = "none";
+        }
 
         // Temperature conversion
         function convertTemp(celsius) {
@@ -338,10 +382,12 @@
         }
 
         async function checkWeather(city) {
+            showLoading();
             try {
                 const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
 
                 if (response.status === 404) {
+                    hideLoading();
                     errorMessage.style.display = "block";
                     weatherInfo.style.display = "none";
                     setTimeout(() => errorMessage.style.display = "none", 3000);
@@ -352,9 +398,12 @@
                     fetchForecast(city);
                     fetchAirQuality(currentWeatherData.coord.lat, currentWeatherData.coord.lon);
                     saveSearch(city);
+                    updateWeatherTips();
+                    hideLoading();
                 }
             } catch (error) {
                 console.error("Error fetching weather:", error);
+                hideLoading();
                 errorMessage.style.display = "block";
                 weatherInfo.style.display = "none";
                 setTimeout(() => errorMessage.style.display = "none", 3000);
@@ -549,6 +598,99 @@
             errorMessage.style.display = "none";
         }
 
+        // Weather tips based on conditions
+        function updateWeatherTips() {
+            if (!currentWeatherData) return;
+            
+            const temp = currentWeatherData.main.temp;
+            const humidity = currentWeatherData.main.humidity;
+            const windSpeed = currentWeatherData.wind.speed;
+            const weather = currentWeatherData.weather[0].main;
+            const tipElement = document.querySelector(".tip-text");
+            
+            let tip = "";
+            
+            if (weather === "Rain") {
+                tip = "Don't forget your umbrella! Rain is expected today.";
+            } else if (weather === "Snow") {
+                tip = "Drive carefully! Snowy conditions ahead.";
+            } else if (temp > 30) {
+                tip = "Stay hydrated! It's hot outside. Drink plenty of water.";
+            } else if (temp < 5) {
+                tip = "Bundle up! Wear warm clothing in this cold weather.";
+            } else if (humidity > 80) {
+                tip = "High humidity today. It might feel warmer than it actually is.";
+            } else if (windSpeed > 30) {
+                tip = "Windy conditions! Secure loose objects outside.";
+            } else if (weather === "Clear") {
+                tip = "Perfect weather! Great day for outdoor activities.";
+            } else {
+                tip = "Have a great day! Check back for weather updates.";
+            }
+            
+            tipElement.textContent = tip;
+        }
+
+        // Favorites management
+        function addToFavorites(city) {
+            let favorites = JSON.parse(localStorage.getItem("favoriteCities")) || [];
+            if (favorites.includes(city)) {
+                showNotification(`${city} is already in favorites!`);
+                return;
+            }
+            favorites.push(city);
+            if (favorites.length > 5) favorites.shift();
+            localStorage.setItem("favoriteCities", JSON.stringify(favorites));
+            displayFavorites();
+            showNotification(`✓ ${city} added to favorites!`);
+        }
+
+        function removeFromFavorites(city) {
+            let favorites = JSON.parse(localStorage.getItem("favoriteCities")) || [];
+            favorites = favorites.filter(f => f !== city);
+            localStorage.setItem("favoriteCities", JSON.stringify(favorites));
+            displayFavorites();
+        }
+
+        function displayFavorites() {
+            const favorites = JSON.parse(localStorage.getItem("favoriteCities")) || [];
+            favoritesList.innerHTML = "";
+            if (favorites.length === 0) {
+                favoritesList.innerHTML = "<p class='no-favorites'>No favorite cities yet</p>";
+                return;
+            }
+            favorites.forEach(city => {
+                const tag = document.createElement("div");
+                tag.className = "favorite-tag";
+                tag.innerHTML = `
+                    <span class=\"fav-city\">${city}</span>
+                    <button class=\"remove-fav\" title=\"Remove\">×</button>
+                `;
+                tag.querySelector(".fav-city").addEventListener("click", () => {
+                    checkWeather(city);
+                    searchBox.value = city;
+                });
+                tag.querySelector(".remove-fav").addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    removeFromFavorites(city);
+                });
+                favoritesList.appendChild(tag);
+            });
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement("div");
+            notification.className = "notification";
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.classList.add("show"), 100);
+            setTimeout(() => {
+                notification.classList.remove("show");
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
         // Search history
         function saveSearch(city) {
             let searches = JSON.parse(localStorage.getItem("weatherSearches")) || [];
@@ -600,6 +742,7 @@
 
         // Initial display
         displaySearchHistory();
+        displayFavorites();
         checkWeather("London");
     </script>
 </body>
